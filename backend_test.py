@@ -73,6 +73,26 @@ class AstrologyAPITester:
             200
         )
 
+    def test_invalid_data(self):
+        """Test with invalid data"""
+        invalid_data = {
+            "year": 1990,
+            "month": 15,  # Invalid month
+            "day": 15,
+            "hours": 14, 
+            "minutes": 30,
+            "latitude": 40.7128,
+            "longitude": -74.0060,
+            "timezone": -4
+        }
+        return self.run_test(
+            "Invalid Data Handling",
+            "POST", 
+            "api/birth-chart",
+            400,  # Should return Bad Request
+            data=invalid_data
+        )
+
 def main():
     # Setup
     tester = AstrologyAPITester("https://11bc0d6b-635a-418a-aab1-c1c7088ce225.preview.emergentagent.com")
@@ -99,7 +119,7 @@ def main():
     if root_success:
         print(f"API Message: {root_response.get('message', '')}")
     
-    # Test 2: Birth Chart Calculation
+    # Test 2: Birth Chart Calculation (with requested test data)
     chart_success, chart_response = tester.test_birth_chart(birth_data)
     if chart_success:
         print("\nBirth Chart Results:")
@@ -115,6 +135,13 @@ def main():
         print(f"\nHistory entries found: {len(history_entries)}")
         if history_entries:
             print(f"Most recent entry: {history_entries[0].get('timestamp', '')}")
+    
+    # Test 4: Invalid Data Handling
+    invalid_success, invalid_response = tester.test_invalid_data()
+    if invalid_success:
+        print("Invalid data handling works correctly")
+    else:
+        print("Note: The API did not return the expected 400 status code for invalid data")
 
     # Print results
     print(f"\n📊 Tests passed: {tester.tests_passed}/{tester.tests_run}")
