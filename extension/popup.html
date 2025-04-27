@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sidereal Astrology Birth Chart</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Sidereal Birth Chart Calculator</h1>
+    
+    <div class="form-group">
+      <label for="birthdate">Birth Date:</label>
+      <input type="date" id="birthdate" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="birthtime">Birth Time:</label>
+      <input type="time" id="birthtime" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="latitude">Latitude:</label>
+      <input type="number" id="latitude" step="0.000001" placeholder="e.g., 51.5074" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="longitude">Longitude:</label>
+      <input type="number" id="longitude" step="0.000001" placeholder="e.g., -0.1278" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="timezone">Timezone Offset (hours):</label>
+      <input type="number" id="timezone" step="0.5" placeholder="e.g., +1, -5" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="ayanamsha">Ayanamsha (Sidereal System):</label>
+      <select id="ayanamsha">
+        <option value="lahiri">Lahiri</option>
+        <option value="fagan_bradley">Fagan-Bradley</option>
+        <option value="krishnamurti">Krishnamurti</option>
+        <option value="raman">Raman</option>
+      </select>
+    </div>
+    
+    <button id="calculateBtn">Calculate Birth Chart</button>
+    
+    <div id="loading" class="hidden">
+      <div class="spinner"></div>
+      <p>Calculating chart...</p>
+    </div>
+    
+    <div id="results" class="hidden">
+      <h2>Your Sidereal Birth Chart</h2>
+      <div id="chartContainer"></div>
+      <div id="planetaryPositions"></div>
+    </div>
+    
+    <div id="error" class="hidden">
+      <p>There was an error calculating your birth chart. Please try again.</p>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
